@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import { Button, Form, Input } from "antd";
+import "./App.css";
 
-function App() {
+export default function App() {
+  const array = [
+    {
+      name: "input1",
+      rules: [
+        {
+          required: true,
+          message: "Input 1 is required",
+        },
+      ],
+    },
+    {
+      name: "input2",
+      rules: [
+        {
+          required: true,
+          message: "Input 2 is required",
+        },
+      ],
+    },
+    {
+      name: "input3",
+      rules: [
+        {
+          required: false,
+          message: "Input 3 is required",
+        },
+      ],
+    },
+    {
+      name: "input4",
+      rules: [
+        {
+          required: true,
+          message: "Input 4 is required",
+        },
+      ],
+    },
+  ];
+  const [form] = Form.useForm();
+
+  const submitHandler = (values) => {
+    console.log("---values---", values);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="Container">
+        <Form form={form} onFinish={submitHandler}>
+          {array.map((i, key) => {
+            return (
+              <Form.Item name={i.name} rules={i.rules}>
+                <Input />
+              </Form.Item>
+            );
+          })}
+
+          <Button htmlType="submit">Click Me</Button>
+        </Form>
+      </div>
     </div>
   );
 }
-
-export default App;
